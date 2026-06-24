@@ -70,3 +70,60 @@ export const productoSchema = z.object({
 });
 
 export type ProductoInput = z.infer<typeof productoSchema>;
+
+// ─── Cliente ──────────────────────────────────────────────────────────────────
+
+export const TIPOS_ID_CLIENTE = [
+  "FISICA",
+  "JURIDICA",
+  "DIMEX",
+  "NITE",
+  "GENERICO",
+  "EXTRANJERO_ND",
+  "NO_CONTRIBUYENTE",
+] as const;
+
+export const TIPOS_ID_CLIENTE_LABEL: Record<(typeof TIPOS_ID_CLIENTE)[number], string> = {
+  FISICA: "Cédula física",
+  JURIDICA: "Cédula jurídica",
+  DIMEX: "DIMEX (residencia)",
+  NITE: "NITE",
+  GENERICO: "Genérico (consumidor final)",
+  EXTRANJERO_ND: "Extranjero no domiciliado",
+  NO_CONTRIBUYENTE: "No contribuyente",
+};
+
+export const clienteSchema = z.object({
+  tipoIdentificacion: z.enum(TIPOS_ID_CLIENTE),
+  identificacion: z.string().max(20).optional().or(z.literal("")),
+  nombre: z.string().min(1, "El nombre es requerido").max(255),
+  nombreNegocio: z.string().max(255).optional().or(z.literal("")),
+  codigoNegocio: z.string().max(50).optional().or(z.literal("")),
+  responsable: z.string().max(255).optional().or(z.literal("")),
+  telefono: z
+    .string()
+    .regex(/^\d{8,20}$/, "El teléfono debe tener entre 8 y 20 dígitos numéricos")
+    .optional()
+    .or(z.literal("")),
+  actividadEconomicaReceptor: z.string().max(10).optional().or(z.literal("")),
+  contribuyente: z.boolean().default(false),
+  tieneCredito: z.boolean().default(false),
+  diasCredito: z.coerce.number().int().min(0).max(365).default(0),
+  limiteCredito: z
+    .string()
+    .regex(/^\d+(\.\d{1,5})?$/, "Límite de crédito inválido")
+    .default("0"),
+  activo: z.boolean().default(true),
+  // Paso 2
+  correoContacto: z.string().email("Correo inválido").optional().or(z.literal("")),
+  correoFactura: z.string().email("Correo factura inválido").optional().or(z.literal("")),
+  correosAdicionales: z.array(z.string().email()).max(4).default([]),
+  pais: z.string().max(50).default("CR"),
+  provincia: z.string().max(3).optional().or(z.literal("")),
+  canton: z.string().max(5).optional().or(z.literal("")),
+  distrito: z.string().max(7).optional().or(z.literal("")),
+  direccion: z.string().max(500).optional().or(z.literal("")),
+  rutaId: z.string().optional().or(z.literal("")),
+});
+
+export type ClienteInput = z.infer<typeof clienteSchema>;
