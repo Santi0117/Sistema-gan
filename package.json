@@ -43,7 +43,11 @@
     "react-dom": "19.2.4",
     "react-hook-form": "^7.80.0",
     "tailwind-merge": "^3.6.0",
+    "@xmldom/xmldom": "^0.8.13",
+    "asn1js": "^3.0.10",
+    "pkijs": "^3.4.0",
     "xadesjs": "^2.6.7",
+    "xmldsigjs": "^2.8.7",
     "zod": "^4.4.3"
   },
   "devDependencies": {

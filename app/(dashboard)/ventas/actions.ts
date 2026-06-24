@@ -217,12 +217,32 @@ export async function emitirFactura(
         });
       }
 
+      // Encolar envío a Hacienda si es comprobante electrónico
+      if (esElectronica && claveNumerica && nuevaFactura.id) {
+        try {
+          const { encolarEnvioHacienda } = await import("@/infrastructure/hacienda/hacienda-queue");
+          await encolarEnvioHacienda(nuevaFactura.id, session.empresaId);
+        } catch {
+          // Redis no disponible — el operador puede reenviar manualmente
+        }
+      }
+
       revalidatePath("/ventas");
       return { facturaId: nuevaFactura.id, claveNumerica: claveNumerica ?? undefined, numero };
     }
   } catch {
     // DB not available — dev mode mock
     console.warn("[DEV] DB no disponible, factura no persistida");
+  }
+
+  // Encolar envío a Hacienda si es comprobante electrónico (solo dev fallback)
+  if (esElectronica && claveNumerica) {
+    try {
+      const { encolarEnvioHacienda } = await import("@/infrastructure/hacienda/hacienda-queue");
+      await encolarEnvioHacienda(`mock-${Date.now()}`, session.empresaId);
+    } catch {
+      // Redis no disponible en dev — normal
+    }
   }
 
   revalidatePath("/ventas");
