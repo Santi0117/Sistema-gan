@@ -3,6 +3,13 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --brand: #E85D24;
+  --brand-hover: #d44f18;
+  --sidebar-bg: #1e2130;
+  --sidebar-text: rgba(255,255,255,0.6);
+  --sidebar-text-active: #E85D24;
+  --sidebar-item-active-bg: rgba(232,93,36,0.12);
+  --page-bg: #f7f7f9;
 }
 
 @theme inline {
@@ -10,13 +17,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
