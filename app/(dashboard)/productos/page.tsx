@@ -45,7 +45,7 @@ export default async function ProductosPage({
         <div className="flex items-center gap-3">
           <Link
             href="/productos/nuevo"
-            className="flex items-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-lg transition-colors"
           >
             <Plus className="h-4 w-4" />
             Nuevo producto
@@ -55,11 +55,11 @@ export default async function ProductosPage({
 
       {/* Alerta stock bajo */}
       {stockBajoCount > 0 && !q && (
-        <div className="flex items-center gap-3 bg-orange-50 border border-orange-200 rounded-xl px-4 py-3">
-          <AlertTriangle className="h-5 w-5 text-orange-500 shrink-0" />
-          <span className="text-sm text-orange-800">
+        <div className="flex items-center gap-3 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3">
+          <AlertTriangle className="h-5 w-5 text-emerald-500 shrink-0" />
+          <span className="text-sm text-emerald-800">
             <strong>{stockBajoCount}</strong> producto{stockBajoCount !== 1 ? "s" : ""} con stock bajo.{" "}
-            <Link href="/inventario" className="underline hover:text-orange-900">
+            <Link href="/inventario" className="underline hover:text-emerald-900">
               Ver inventario
             </Link>
           </span>
@@ -105,7 +105,7 @@ export default async function ProductosPage({
             {!q && (
               <Link
                 href="/productos/nuevo"
-                className="inline-block text-sm text-orange-600 hover:text-orange-700 font-medium"
+                className="inline-block text-sm text-emerald-600 hover:text-emerald-700 font-medium"
               >
                 Crear el primer producto →
               </Link>
@@ -138,7 +138,7 @@ export default async function ProductosPage({
                       <td className="px-4 py-3">
                         <Link
                           href={`/productos/${p.id}`}
-                          className="font-medium text-gray-800 hover:text-orange-600"
+                          className="font-medium text-gray-800 hover:text-emerald-600"
                         >
                           {p.nombre}
                         </Link>
@@ -160,13 +160,13 @@ export default async function ProductosPage({
                               sinStock
                                 ? "text-red-600"
                                 : stockBajo
-                                  ? "text-orange-500"
+                                  ? "text-emerald-500"
                                   : "text-gray-700"
                             }`}
                           >
                             {stock.toNumber()} {p.unidadMedida}
                             {stockBajo && !sinStock && (
-                              <AlertTriangle className="inline h-3.5 w-3.5 ml-1 text-orange-400" />
+                              <AlertTriangle className="inline h-3.5 w-3.5 ml-1 text-emerald-400" />
                             )}
                           </span>
                         ) : (
@@ -187,7 +187,7 @@ export default async function ProductosPage({
                       <td className="px-4 py-3 text-right">
                         <Link
                           href={`/productos/${p.id}`}
-                          className="text-xs text-orange-600 hover:text-orange-700 font-medium"
+                          className="text-xs text-emerald-600 hover:text-emerald-700 font-medium"
                         >
                           Editar
                         </Link>

@@ -8,7 +8,7 @@ import { exportarFacturasExcel } from "@/app/(dashboard)/ventas/actions";
 
 const ESTADO_MH: Record<string, { label: string; color: string }> = {
   NO_APLICA: { label: "N/A", color: "bg-gray-100 text-gray-500" },
-  PENDIENTE: { label: "Pendiente", color: "bg-orange-100 text-orange-700" },
+  PENDIENTE: { label: "Pendiente", color: "bg-emerald-100 text-emerald-700" },
   EN_PROCESO: { label: "En proceso", color: "bg-blue-100 text-blue-700" },
   ACEPTADA: { label: "Aceptada", color: "bg-green-100 text-green-700" },
   RECHAZADA: { label: "Rechazada", color: "bg-red-100 text-red-700" },
@@ -105,7 +105,7 @@ export function TablaComprobantes({ facturas, filtros }: Props) {
         {filtered.length === 0 ? (
           <div className="text-center py-16 space-y-3">
             <p className="text-gray-500 text-sm">No hay comprobantes con esos filtros.</p>
-            <Link href="/ventas/nueva" className="inline-block text-sm text-orange-600 font-medium">
+            <Link href="/ventas/nueva" className="inline-block text-sm text-emerald-600 font-medium">
               Emitir nueva factura →
             </Link>
           </div>
@@ -166,7 +166,7 @@ export function TablaComprobantes({ facturas, filtros }: Props) {
                       <td className="px-4 py-3 text-right">
                         <Link
                           href={`/ventas/${f.id}`}
-                          className="text-xs text-orange-600 hover:text-orange-700 font-medium"
+                          className="text-xs text-emerald-600 hover:text-emerald-700 font-medium"
                         >
                           Ver →
                         </Link>

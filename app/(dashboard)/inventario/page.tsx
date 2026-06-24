@@ -49,7 +49,7 @@ export default async function InventarioPage() {
         </div>
         <Link
           href="/inventario/movimientos"
-          className="flex items-center gap-2 text-sm font-medium text-orange-600 hover:text-orange-700"
+          className="flex items-center gap-2 text-sm font-medium text-emerald-600 hover:text-emerald-700"
         >
           Ver movimientos <ArrowRight className="h-4 w-4" />
         </Link>
@@ -100,7 +100,7 @@ export default async function InventarioPage() {
                     className={`font-bold ${
                       new Decimal(p.stockActual ?? "0").lte(0)
                         ? "text-red-600"
-                        : "text-orange-500"
+                        : "text-emerald-500"
                     }`}
                   >
                     {new Decimal(p.stockActual ?? "0").toNumber()}
@@ -118,7 +118,7 @@ export default async function InventarioPage() {
       {/* Tabla de stock */}
       <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
         <div className="px-5 py-4 border-b border-gray-100 flex items-center gap-2">
-          <Package className="h-5 w-5 text-orange-500" />
+          <Package className="h-5 w-5 text-emerald-500" />
           <h2 className="font-semibold text-gray-800">Stock por producto</h2>
         </div>
         <div className="overflow-x-auto">
@@ -158,7 +158,7 @@ export default async function InventarioPage() {
                       <td className="px-4 py-3">
                         <Link
                           href={`/productos/${p.id}`}
-                          className="font-medium text-gray-800 hover:text-orange-600"
+                          className="font-medium text-gray-800 hover:text-emerald-600"
                         >
                           {p.nombre}
                         </Link>
@@ -169,7 +169,7 @@ export default async function InventarioPage() {
                           sinStk
                             ? "text-red-600"
                             : bajo
-                              ? "text-orange-500"
+                              ? "text-emerald-500"
                               : "text-gray-800"
                         }`}
                       >
@@ -190,7 +190,7 @@ export default async function InventarioPage() {
                             Sin stock
                           </span>
                         ) : bajo ? (
-                          <span className="text-xs px-2 py-0.5 rounded-full bg-orange-100 text-orange-700">
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-700">
                             Stock bajo
                           </span>
                         ) : (

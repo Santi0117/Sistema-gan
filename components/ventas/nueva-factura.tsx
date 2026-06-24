@@ -99,7 +99,7 @@ function BuscadorCliente({
 
   if (clienteSeleccionado) {
     return (
-      <div className="flex items-start justify-between bg-orange-50 border border-orange-200 rounded-xl px-4 py-3">
+      <div className="flex items-start justify-between bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3">
         <div>
           <p className="font-semibold text-gray-800">{clienteSeleccionado.nombre}</p>
           {clienteSeleccionado.nombreNegocio && (
@@ -131,7 +131,7 @@ function BuscadorCliente({
           onChange={(e) => buscar(e.target.value)}
           onBlur={() => setTimeout(() => setResultados([]), 200)}
         />
-        {cargando && <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 animate-spin text-orange-500" />}
+        {cargando && <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 animate-spin text-emerald-500" />}
       </div>
       {resultados.length > 0 && (
         <ul className="absolute z-50 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-56 overflow-y-auto">
@@ -139,7 +139,7 @@ function BuscadorCliente({
             <li key={c.id}>
               <button
                 type="button"
-                className="w-full text-left px-3 py-2 hover:bg-orange-50 text-sm"
+                className="w-full text-left px-3 py-2 hover:bg-emerald-50 text-sm"
                 onMouseDown={() => { onSelect(c); setResultados([]); setQuery(""); }}
               >
                 <span className="font-medium text-gray-800">{c.nombre}</span>
@@ -244,14 +244,14 @@ function LineaRow({
             onFocus={() => resultados.length > 0 && setOpen(true)}
             onBlur={() => setTimeout(() => setOpen(false), 200)}
           />
-          {cargando && <Loader2 className="absolute right-2 top-1/2 -translate-y-1/2 h-3 w-3 animate-spin text-orange-400" />}
+          {cargando && <Loader2 className="absolute right-2 top-1/2 -translate-y-1/2 h-3 w-3 animate-spin text-emerald-400" />}
           {open && resultados.length > 0 && (
             <ul className="absolute z-50 left-0 top-full mt-0.5 w-72 bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto">
               {resultados.map((p) => (
                 <li key={p.id}>
                   <button
                     type="button"
-                    className="w-full text-left px-3 py-1.5 hover:bg-orange-50 text-xs"
+                    className="w-full text-left px-3 py-1.5 hover:bg-emerald-50 text-xs"
                     onMouseDown={() => seleccionarProducto(p)}
                   >
                     <span className="font-medium text-gray-800">{p.nombre}</span>
@@ -393,7 +393,7 @@ function PanelTotales({ lineas }: { lineas: LineaState[] }) {
           <span>₡{fmt(totales.subtotal)}</span>
         </div>
         {totales.descuento.gt(0) && (
-          <div className="flex justify-between text-orange-600">
+          <div className="flex justify-between text-emerald-600">
             <span>Descuento</span>
             <span>-₡{fmt(totales.descuento)}</span>
           </div>
@@ -506,7 +506,7 @@ export function NuevaFactura() {
         <div className="flex gap-3 justify-center">
           <button
             onClick={() => router.push(`/ventas/${resultado.facturaId}`)}
-            className="px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg"
+            className="px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-lg"
           >
             Ver comprobante
           </button>
@@ -593,7 +593,7 @@ export function NuevaFactura() {
       {/* Líneas */}
       <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
         <div className="px-4 py-3 border-b border-gray-100 flex items-center gap-2">
-          <ShoppingCart className="h-4 w-4 text-orange-500" />
+          <ShoppingCart className="h-4 w-4 text-emerald-500" />
           <h3 className="font-semibold text-gray-800 text-sm">Líneas de venta</h3>
           {sinCabys && (
             <span className="ml-auto flex items-center gap-1 text-xs text-amber-600">
@@ -634,7 +634,7 @@ export function NuevaFactura() {
           <button
             type="button"
             onClick={addLinea}
-            className="flex items-center gap-1.5 text-sm text-orange-600 hover:text-orange-700 font-medium"
+            className="flex items-center gap-1.5 text-sm text-emerald-600 hover:text-emerald-700 font-medium"
           >
             <Plus className="h-4 w-4" /> Agregar línea
           </button>
@@ -654,7 +654,7 @@ export function NuevaFactura() {
               type="button"
               onClick={handleEmitir}
               disabled={submitting}
-              className="flex items-center gap-2 px-6 py-2.5 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-lg disabled:opacity-50 transition-colors"
+              className="flex items-center gap-2 px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-semibold rounded-lg disabled:opacity-50 transition-colors"
             >
               {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
               Emitir factura

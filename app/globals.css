@@ -1,15 +1,17 @@
 @import "tailwindcss";
 
+/* ─── Paleta ───────────────────────────────────────────────────────────────── */
 :root {
   --background: #ffffff;
-  --foreground: #171717;
-  --brand: #E85D24;
-  --brand-hover: #d44f18;
-  --sidebar-bg: #1e2130;
-  --sidebar-text: rgba(255,255,255,0.6);
-  --sidebar-text-active: #E85D24;
-  --sidebar-item-active-bg: rgba(232,93,36,0.12);
-  --page-bg: #f7f7f9;
+  --foreground: #111827;
+  --brand: #10b981;
+  --brand-dark: #059669;
+  --brand-glow: rgba(16, 185, 129, 0.25);
+  --sidebar-bg: #0e1f14;
+  --sidebar-text: rgba(255,255,255,0.55);
+  --sidebar-text-active: #34d399;
+  --sidebar-item-active-bg: rgba(52,211,153,0.1);
+  --page-bg: #f0fdf4;
 }
 
 @theme inline {
@@ -23,4 +25,122 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ─── Keyframes ────────────────────────────────────────────────────────────── */
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-14px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.93); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--brand-glow); }
+  50%       { box-shadow: 0 0 14px 4px var(--brand-glow); }
+}
+
+@keyframes border-glow {
+  0%, 100% { border-color: rgba(52,211,153,0.4); }
+  50%       { border-color: rgba(52,211,153,1); }
+}
+
+@keyframes shimmer-text {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-4px); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ─── Utilities ────────────────────────────────────────────────────────────── */
+
+@layer utilities {
+  .animate-fade-in-up {
+    animation: fade-in-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .animate-fade-in {
+    animation: fade-in 0.4s ease both;
+  }
+  .animate-slide-in-left {
+    animation: slide-in-left 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .animate-scale-in {
+    animation: scale-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .animate-glow-pulse {
+    animation: glow-pulse 2.5s ease-in-out infinite;
+  }
+  .animate-border-glow {
+    animation: border-glow 1.8s ease-in-out infinite;
+  }
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  /* Gradient text verde */
+  .text-gradient-emerald {
+    background: linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer-text 3s linear infinite;
+  }
+
+  /* Gradient text para montos grandes */
+  .text-gradient-money {
+    background: linear-gradient(135deg, #059669 0%, #10b981 60%, #34d399 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Card con hover glow */
+  .card-hover-glow {
+    transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .card-hover-glow:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--brand-glow), 0 2px 8px rgba(0,0,0,0.06);
+    border-color: rgba(16,185,129,0.3);
+  }
+
+  /* Delay utilities */
+  .delay-75  { animation-delay: 75ms; }
+  .delay-100 { animation-delay: 100ms; }
+  .delay-150 { animation-delay: 150ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+  .delay-600 { animation-delay: 600ms; }
+  .delay-700 { animation-delay: 700ms; }
+
+  /* Decorative dot grid background */
+  .bg-dot-grid {
+    background-image: radial-gradient(circle, #d1fae5 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
 }

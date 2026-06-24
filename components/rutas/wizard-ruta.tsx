@@ -125,7 +125,7 @@ export function WizardRuta({ rutaId, inicial, clientes, usuarios }: Props) {
             >
               <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 transition-colors ${
                 paso === p.n
-                  ? "bg-orange-500 text-white"
+                  ? "bg-emerald-500 text-white"
                   : paso > p.n
                     ? "bg-green-500 text-white"
                     : "bg-gray-100 text-gray-400"
@@ -179,7 +179,7 @@ export function WizardRuta({ rutaId, inicial, clientes, usuarios }: Props) {
           <button
             type="button"
             onClick={avanzar}
-            className="px-5 py-2 text-sm bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg"
+            className="px-5 py-2 text-sm bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded-lg"
           >
             Siguiente →
           </button>
@@ -188,7 +188,7 @@ export function WizardRuta({ rutaId, inicial, clientes, usuarios }: Props) {
             type="button"
             onClick={guardar}
             disabled={pending}
-            className="px-5 py-2 text-sm bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg disabled:opacity-50"
+            className="px-5 py-2 text-sm bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded-lg disabled:opacity-50"
           >
             {pending ? "Guardando…" : rutaId ? "Guardar cambios" : "Crear ruta"}
           </button>
@@ -245,8 +245,8 @@ function Paso1({
               onClick={() => toggleDia(dia)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium capitalize border transition-colors ${
                 state.dias.includes(dia)
-                  ? "bg-orange-500 text-white border-orange-500"
-                  : "border-gray-200 text-gray-600 hover:border-orange-300"
+                  ? "bg-emerald-500 text-white border-emerald-500"
+                  : "border-gray-200 text-gray-600 hover:border-emerald-300"
               }`}
             >
               {dia}
@@ -336,7 +336,7 @@ function Paso2({
               key={z}
               type="button"
               onClick={() => agregarSugerencia(z)}
-              className="px-2.5 py-1 text-xs border border-gray-200 rounded-full text-gray-600 hover:border-orange-300 hover:text-orange-600 transition-colors"
+              className="px-2.5 py-1 text-xs border border-gray-200 rounded-full text-gray-600 hover:border-emerald-300 hover:text-emerald-600 transition-colors"
             >
               + {z}
             </button>
@@ -422,7 +422,7 @@ function Paso4({
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-const input = "w-full h-10 px-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-orange-400 bg-white";
+const input = "w-full h-10 px-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-400 bg-white";
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (

@@ -28,7 +28,7 @@ export default async function RutasPage() {
         </div>
         <Link
           href="/rutas/nueva"
-          className="flex items-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-lg transition-colors"
         >
           <Plus className="h-4 w-4" />
           Nueva ruta
@@ -40,7 +40,7 @@ export default async function RutasPage() {
         <div className="bg-white border border-gray-200 rounded-xl py-16 text-center space-y-3">
           <MapPin className="h-10 w-10 text-gray-300 mx-auto" />
           <p className="text-gray-500">No hay rutas registradas.</p>
-          <Link href="/rutas/nueva" className="inline-block text-sm text-orange-600 font-medium">
+          <Link href="/rutas/nueva" className="inline-block text-sm text-emerald-600 font-medium">
             Crear la primera ruta →
           </Link>
         </div>
@@ -50,12 +50,12 @@ export default async function RutasPage() {
             <Link
               key={ruta.id}
               href={`/rutas/${ruta.id}`}
-              className="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-md hover:border-orange-200 transition-all group block"
+              className="bg-white border border-gray-200 rounded-xl p-5 hover:shadow-md hover:border-emerald-200 transition-all group block"
             >
               {/* Header tarjeta */}
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1 min-w-0">
-                  <h2 className={`font-semibold text-gray-900 group-hover:text-orange-600 transition-colors truncate ${!ruta.activa ? "text-gray-400" : ""}`}>
+                  <h2 className={`font-semibold text-gray-900 group-hover:text-emerald-600 transition-colors truncate ${!ruta.activa ? "text-gray-400" : ""}`}>
                     {ruta.nombre}
                   </h2>
                   <p className="text-xs text-gray-400 font-mono mt-0.5">{ruta.codigo}</p>
@@ -76,7 +76,7 @@ export default async function RutasPage() {
                     key={dia}
                     className={`w-6 h-6 rounded text-xs font-bold flex items-center justify-center ${
                       ruta.dias?.includes(dia)
-                        ? "bg-orange-100 text-orange-700"
+                        ? "bg-emerald-100 text-emerald-700"
                         : "bg-gray-50 text-gray-300"
                     }`}
                   >

@@ -110,7 +110,7 @@ export function AccionesFactura({
           <button
             onClick={handleReenvio}
             disabled={pending}
-            className="flex items-center gap-1.5 px-3 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-50"
+            className="flex items-center gap-1.5 px-3 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-lg transition-colors disabled:opacity-50"
           >
             <SendIcon /> Enviar a Hacienda
           </button>
@@ -149,7 +149,7 @@ export function AccionesFactura({
               </button>
               <button
                 onClick={confirmarReenvio}
-                className="px-4 py-2 text-sm bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-lg"
+                className="px-4 py-2 text-sm bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded-lg"
               >
                 Confirmar reenvío
               </button>
@@ -228,7 +228,7 @@ function ModalAnulacion({
             onChange={(e) => setRazon(e.target.value)}
             rows={3}
             placeholder="Ej: Error en el precio del producto, factura duplicada…"
-            className="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 resize-none focus:outline-none focus:border-orange-400"
+            className="w-full text-sm border border-gray-200 rounded-lg px-3 py-2 resize-none focus:outline-none focus:border-emerald-400"
             maxLength={255}
           />
           <p className="text-xs text-gray-400 mt-0.5">{razon.length}/255</p>

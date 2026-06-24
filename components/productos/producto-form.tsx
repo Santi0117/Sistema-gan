@@ -215,7 +215,7 @@ export function ProductoForm({ producto, action, titulo }: ProductoFormProps) {
             />
             <div
               className={`w-10 h-6 rounded-full transition-colors ${
-                controlarStock ? "bg-orange-500" : "bg-gray-300"
+                controlarStock ? "bg-emerald-500" : "bg-gray-300"
               }`}
             >
               <div
@@ -291,7 +291,7 @@ export function ProductoForm({ producto, action, titulo }: ProductoFormProps) {
         <button
           type="submit"
           disabled={pending}
-          className="px-6 py-2 rounded-lg bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium disabled:opacity-50 transition-colors"
+          className="px-6 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium disabled:opacity-50 transition-colors"
         >
           {pending ? "Guardando…" : "Guardar producto"}
         </button>

@@ -39,7 +39,7 @@ export default async function ClientesPage({
         </div>
         <Link
           href="/clientes/nuevo"
-          className="flex items-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-lg transition-colors"
         >
           <Plus className="h-4 w-4" />
           Nuevo cliente
@@ -80,7 +80,7 @@ export default async function ClientesPage({
             {!q && (
               <Link
                 href="/clientes/nuevo"
-                className="inline-block text-sm text-orange-600 hover:text-orange-700 font-medium"
+                className="inline-block text-sm text-emerald-600 hover:text-emerald-700 font-medium"
               >
                 Crear el primer cliente →
               </Link>
@@ -108,7 +108,7 @@ export default async function ClientesPage({
                       <td className="px-4 py-3">
                         <Link
                           href={`/clientes/${c.id}`}
-                          className="font-medium text-gray-800 hover:text-orange-600"
+                          className="font-medium text-gray-800 hover:text-emerald-600"
                         >
                           {c.nombre}
                         </Link>
@@ -159,7 +159,7 @@ export default async function ClientesPage({
                       <td className="px-4 py-3 text-right">
                         <Link
                           href={`/clientes/${c.id}`}
-                          className="text-xs text-orange-600 hover:text-orange-700 font-medium"
+                          className="text-xs text-emerald-600 hover:text-emerald-700 font-medium"
                         >
                           Editar
                         </Link>

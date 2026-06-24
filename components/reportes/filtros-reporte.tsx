@@ -32,19 +32,19 @@ export function FiltrosReporte({ rutas = [], usuarios = [], mostrarRuta = true, 
       <div className="flex flex-col gap-1">
         <label className="text-xs font-medium text-gray-500">Desde</label>
         <input type="date" value={g("desde")} onChange={(e) => set("desde", e.target.value)}
-          className="h-9 px-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-orange-400" />
+          className="h-9 px-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-400" />
       </div>
       <div className="flex flex-col gap-1">
         <label className="text-xs font-medium text-gray-500">Hasta</label>
         <input type="date" value={g("hasta")} onChange={(e) => set("hasta", e.target.value)}
-          className="h-9 px-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-orange-400" />
+          className="h-9 px-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-400" />
       </div>
 
       {mostrarRuta && rutas.length > 0 && (
         <div className="flex flex-col gap-1">
           <label className="text-xs font-medium text-gray-500">Ruta</label>
           <select value={g("rutaId")} onChange={(e) => set("rutaId", e.target.value)}
-            className="h-9 px-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-orange-400 bg-white" style={{ minWidth: 140 }}>
+            className="h-9 px-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-400 bg-white" style={{ minWidth: 140 }}>
             <option value="">Todas las rutas</option>
             {rutas.map((r) => <option key={r.id} value={r.id}>{r.nombre}</option>)}
           </select>
@@ -55,7 +55,7 @@ export function FiltrosReporte({ rutas = [], usuarios = [], mostrarRuta = true, 
         <div className="flex flex-col gap-1">
           <label className="text-xs font-medium text-gray-500">Vendedor</label>
           <select value={g("vendedorId")} onChange={(e) => set("vendedorId", e.target.value)}
-            className="h-9 px-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-orange-400 bg-white" style={{ minWidth: 140 }}>
+            className="h-9 px-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-400 bg-white" style={{ minWidth: 140 }}>
             <option value="">Todos</option>
             {usuarios.map((u) => <option key={u.id} value={u.id}>{u.nombre}</option>)}
           </select>

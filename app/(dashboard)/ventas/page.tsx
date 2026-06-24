@@ -48,7 +48,7 @@ export default async function VentasPage({ searchParams }: Props) {
         </div>
         <Link
           href="/ventas/nueva"
-          className="flex items-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-lg transition-colors"
         >
           <Plus className="h-4 w-4" />
           Nueva factura
@@ -67,9 +67,9 @@ export default async function VentasPage({ searchParams }: Props) {
           <p className="text-xs text-gray-500 uppercase tracking-wide">Comprobantes</p>
           <p className="text-2xl font-bold text-gray-900 mt-1">{facturas.length}</p>
         </div>
-        <div className={`border rounded-xl p-5 ${pendientesMH > 0 ? "bg-orange-50 border-orange-200" : "bg-white border-gray-200"}`}>
+        <div className={`border rounded-xl p-5 ${pendientesMH > 0 ? "bg-emerald-50 border-emerald-200" : "bg-white border-gray-200"}`}>
           <p className="text-xs text-gray-500 uppercase tracking-wide">Pendientes MH</p>
-          <p className={`text-2xl font-bold mt-1 ${pendientesMH > 0 ? "text-orange-600" : "text-gray-900"}`}>
+          <p className={`text-2xl font-bold mt-1 ${pendientesMH > 0 ? "text-emerald-600" : "text-gray-900"}`}>
             {pendientesMH}
           </p>
         </div>
@@ -77,11 +77,11 @@ export default async function VentasPage({ searchParams }: Props) {
 
       {/* Alerta pendientes */}
       {pendientesMH > 0 && (
-        <div className="flex items-start gap-3 bg-orange-50 border border-orange-200 rounded-xl px-4 py-3 text-sm text-orange-800">
+        <div className="flex items-start gap-3 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3 text-sm text-emerald-800">
           <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
           <div>
             <span className="font-medium">{pendientesMH} comprobante{pendientesMH !== 1 ? "s" : ""} pendiente{pendientesMH !== 1 ? "s" : ""} de envío a Hacienda.</span>
-            <p className="text-xs mt-0.5 text-orange-700">
+            <p className="text-xs mt-0.5 text-emerald-700">
               Use el botón "Enviar a Hacienda" en cada comprobante individual. No se realizan envíos masivos.
             </p>
           </div>
@@ -94,7 +94,7 @@ export default async function VentasPage({ searchParams }: Props) {
           <div className="text-center py-16 space-y-3">
             <FileText className="h-10 w-10 text-gray-300 mx-auto" />
             <p className="text-gray-500">No hay comprobantes este mes.</p>
-            <Link href="/ventas/nueva" className="inline-block text-sm text-orange-600 font-medium">
+            <Link href="/ventas/nueva" className="inline-block text-sm text-emerald-600 font-medium">
               Emitir la primera factura →
             </Link>
           </div>

@@ -54,7 +54,7 @@ const TIPO_CONFIG: Record<TipoMovimiento, { label: string; color: string; icon: 
   },
   SALIDA: {
     label: "Salida",
-    color: "bg-orange-100 text-orange-700",
+    color: "bg-emerald-100 text-emerald-700",
     icon: <ArrowUpFromLine className="h-3.5 w-3.5" />,
   },
   AJUSTE: {
@@ -97,8 +97,8 @@ export default async function MovimientosPage() {
             key={tipo}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors ${
               tipo === "TODOS"
-                ? "bg-orange-500 text-white border-orange-500"
-                : "bg-white text-gray-600 border-gray-200 hover:border-orange-300"
+                ? "bg-emerald-500 text-white border-emerald-500"
+                : "bg-white text-gray-600 border-gray-200 hover:border-emerald-300"
             }`}
           >
             {tipo === "TODOS" ? "Todos" : TIPO_CONFIG[tipo].label}

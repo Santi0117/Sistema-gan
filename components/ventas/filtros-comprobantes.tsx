@@ -113,7 +113,7 @@ export function FiltrosComprobantes({ onExportExcel, exportando }: Props) {
             type="date"
             value={get("desde")}
             onChange={(e) => setParam("desde", e.target.value)}
-            className="h-9 px-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-orange-400"
+            className="h-9 px-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-400"
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -122,7 +122,7 @@ export function FiltrosComprobantes({ onExportExcel, exportando }: Props) {
             type="date"
             value={get("hasta")}
             onChange={(e) => setParam("hasta", e.target.value)}
-            className="h-9 px-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-orange-400"
+            className="h-9 px-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-400"
           />
         </div>
 
@@ -169,7 +169,7 @@ function FilterSelect({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-9 px-2 pr-7 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-orange-400 bg-white appearance-none"
+        className="h-9 px-2 pr-7 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-400 bg-white appearance-none"
         style={{ minWidth: "130px" }}
       >
         {options.map((o) => (

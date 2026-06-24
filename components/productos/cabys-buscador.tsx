@@ -80,7 +80,7 @@ export function CabysBuscador({
             onFocus={() => resultados.length > 0 && setAbierto(true)}
           />
           {cargando && (
-            <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 animate-spin text-orange-500" />
+            <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 animate-spin text-emerald-500" />
           )}
           {!cargando && (query || value) && (
             <button
@@ -99,13 +99,13 @@ export function CabysBuscador({
               <li key={item.codigo}>
                 <button
                   type="button"
-                  className="w-full text-left px-3 py-2 hover:bg-orange-50 text-sm"
+                  className="w-full text-left px-3 py-2 hover:bg-emerald-50 text-sm"
                   onMouseDown={() => seleccionar(item)}
                 >
                   <span className="font-mono text-xs text-gray-500 mr-2">{item.codigo}</span>
                   <span className="text-gray-800">{item.descripcion}</span>
                   {item.impuesto > 0 && (
-                    <span className="ml-2 text-xs text-orange-600">IVA {item.impuesto}%</span>
+                    <span className="ml-2 text-xs text-emerald-600">IVA {item.impuesto}%</span>
                   )}
                 </button>
               </li>
@@ -121,8 +121,8 @@ export function CabysBuscador({
       </div>
 
       {value && (
-        <div className="flex items-center gap-2 text-xs text-gray-600 bg-orange-50 border border-orange-100 rounded px-2 py-1">
-          <span className="font-mono text-orange-700">{value}</span>
+        <div className="flex items-center gap-2 text-xs text-gray-600 bg-emerald-50 border border-emerald-100 rounded px-2 py-1">
+          <span className="font-mono text-emerald-700">{value}</span>
           <span className="text-gray-400">—</span>
           <span>{query || descripcionInicial}</span>
         </div>

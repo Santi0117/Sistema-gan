@@ -54,9 +54,9 @@ function StepIndicator({ paso, total = 3 }: { paso: number; total?: number }) {
               <div
                 className={`w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold transition-all ${
                   done
-                    ? "bg-orange-500 text-white"
+                    ? "bg-emerald-500 text-white"
                     : current
-                      ? "bg-orange-100 text-orange-600 ring-2 ring-orange-500"
+                      ? "bg-emerald-100 text-emerald-600 ring-2 ring-orange-500"
                       : "bg-gray-100 text-gray-400"
                 }`}
               >
@@ -64,7 +64,7 @@ function StepIndicator({ paso, total = 3 }: { paso: number; total?: number }) {
               </div>
               <span
                 className={`text-sm font-medium ${
-                  current ? "text-gray-900" : done ? "text-orange-600" : "text-gray-400"
+                  current ? "text-gray-900" : done ? "text-emerald-600" : "text-gray-400"
                 }`}
               >
                 {label}
@@ -164,7 +164,7 @@ function Paso1({
               type="button"
               onClick={buscarHacienda}
               disabled={buscandoHacienda || !data.identificacion}
-              className="flex items-center gap-1.5 px-3 py-2 text-sm border border-orange-300 text-orange-600 rounded-md hover:bg-orange-50 disabled:opacity-50"
+              className="flex items-center gap-1.5 px-3 py-2 text-sm border border-emerald-300 text-emerald-600 rounded-md hover:bg-emerald-50 disabled:opacity-50"
             >
               {buscandoHacienda ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -333,7 +333,7 @@ function Paso1({
           type="button"
           disabled={!valid}
           onClick={onNext}
-          className="flex items-center gap-2 px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg disabled:opacity-50 transition-colors"
+          className="flex items-center gap-2 px-6 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-lg disabled:opacity-50 transition-colors"
         >
           Siguiente <ChevronRight className="h-4 w-4" />
         </button>
@@ -428,7 +428,7 @@ function Paso2({
         {correosAdicionales.map((c, i) => (
           <div
             key={i}
-            className="flex items-center justify-between bg-orange-50 border border-orange-100 rounded-md px-3 py-1.5 text-sm"
+            className="flex items-center justify-between bg-emerald-50 border border-emerald-100 rounded-md px-3 py-1.5 text-sm"
           >
             <span className="text-gray-700">{c}</span>
             <button
@@ -542,7 +542,7 @@ function Paso2({
         <button
           type="button"
           onClick={onNext}
-          className="flex items-center gap-2 px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg transition-colors"
+          className="flex items-center gap-2 px-6 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-lg transition-colors"
         >
           Revisar resumen <ChevronRight className="h-4 w-4" />
         </button>
@@ -591,7 +591,7 @@ function Paso3({
       {/* Sección identificación */}
       <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 space-y-2">
         <div className="flex items-center gap-2 mb-2">
-          <User className="h-4 w-4 text-orange-500" />
+          <User className="h-4 w-4 text-emerald-500" />
           <h3 className="text-sm font-semibold text-gray-700">Identificación</h3>
         </div>
         <Row label="Tipo" value={tipo ? TIPOS_ID_CLIENTE_LABEL[tipo] : "—"} />
@@ -614,7 +614,7 @@ function Paso3({
       {/* Sección contacto */}
       <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 space-y-2">
         <div className="flex items-center gap-2 mb-2">
-          <MapPin className="h-4 w-4 text-orange-500" />
+          <MapPin className="h-4 w-4 text-emerald-500" />
           <h3 className="text-sm font-semibold text-gray-700">Contacto y dirección</h3>
         </div>
         {data.correoContacto && <Row label="Correo contacto" value={data.correoContacto} />}
@@ -644,7 +644,7 @@ function Paso3({
           type="button"
           onClick={onSubmit}
           disabled={submitting}
-          className="flex items-center gap-2 px-6 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-medium rounded-lg disabled:opacity-50 transition-colors"
+          className="flex items-center gap-2 px-6 py-2 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-lg disabled:opacity-50 transition-colors"
         >
           {submitting ? (
             <Loader2 className="h-4 w-4 animate-spin" />

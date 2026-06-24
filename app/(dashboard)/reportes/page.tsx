@@ -16,7 +16,7 @@ const REPORTES = [
 ];
 
 const CATEGORIA_COLOR: Record<string, string> = {
-  Ventas: "bg-orange-50 text-orange-700 border-orange-200",
+  Ventas: "bg-emerald-50 text-emerald-700 border-emerald-200",
   Compras: "bg-blue-50 text-blue-700 border-blue-200",
   Clientes: "bg-purple-50 text-purple-700 border-purple-200",
   Inventario: "bg-green-50 text-green-700 border-green-200",
@@ -44,12 +44,12 @@ export default async function ReportesPage() {
               <Link
                 key={r.tipo}
                 href={`/reportes/${r.tipo}`}
-                className="bg-white border border-gray-200 rounded-xl p-4 hover:shadow-md hover:border-orange-200 transition-all group flex gap-3"
+                className="bg-white border border-gray-200 rounded-xl p-4 hover:shadow-md hover:border-emerald-200 transition-all group flex gap-3"
               >
                 <span className="text-2xl shrink-0">{r.icon}</span>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <h3 className="text-sm font-semibold text-gray-800 group-hover:text-orange-600 transition-colors truncate">{r.titulo}</h3>
+                    <h3 className="text-sm font-semibold text-gray-800 group-hover:text-emerald-600 transition-colors truncate">{r.titulo}</h3>
                     <span className={`shrink-0 text-xs px-1.5 py-0.5 rounded border font-medium ${CATEGORIA_COLOR[r.categoria]}`}>
                       {r.categoria}
                     </span>

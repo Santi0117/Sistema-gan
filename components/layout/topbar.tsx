@@ -44,7 +44,7 @@ export function Topbar({ nombre, rol, title }: TopbarProps) {
         >
           <div
             className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs font-semibold shrink-0"
-            style={{ background: "#E85D24" }}
+            style={{ background: "linear-gradient(135deg, #059669 0%, #10b981 100%)" }}
           >
             {initials}
           </div>

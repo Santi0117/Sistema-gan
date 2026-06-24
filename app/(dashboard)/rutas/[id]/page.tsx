@@ -67,7 +67,7 @@ export default async function DetalleRutaPage({ params }: Props) {
                 key={dia}
                 className={`w-7 h-7 rounded-lg text-xs font-bold flex items-center justify-center ${
                   ruta.dias?.includes(dia)
-                    ? "bg-orange-100 text-orange-700"
+                    ? "bg-emerald-100 text-emerald-700"
                     : "bg-gray-50 text-gray-300"
                 }`}
                 title={dia}
@@ -119,7 +119,7 @@ export default async function DetalleRutaPage({ params }: Props) {
         {clientesEnRuta.length === 0 ? (
           <div className="px-5 py-8 text-center space-y-2">
             <p className="text-sm text-gray-400">Sin clientes asignados.</p>
-            <Link href={`/rutas/${id}/editar`} className="text-sm text-orange-600 font-medium">
+            <Link href={`/rutas/${id}/editar`} className="text-sm text-emerald-600 font-medium">
               Asignar clientes →
             </Link>
           </div>
@@ -127,7 +127,7 @@ export default async function DetalleRutaPage({ params }: Props) {
           <div className="divide-y divide-gray-50">
             {clientesEnRuta.map((c, i) => (
               <div key={c.id} className="flex items-center gap-3 px-5 py-3">
-                <div className="w-7 h-7 rounded-full bg-orange-100 text-orange-700 text-xs font-bold flex items-center justify-center shrink-0">
+                <div className="w-7 h-7 rounded-full bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center justify-center shrink-0">
                   {i + 1}
                 </div>
                 <div className="flex-1 min-w-0">
@@ -140,7 +140,7 @@ export default async function DetalleRutaPage({ params }: Props) {
                 </div>
                 <Link
                   href={`/clientes/${c.id}`}
-                  className="text-xs text-orange-600 hover:text-orange-700 font-medium shrink-0"
+                  className="text-xs text-emerald-600 hover:text-emerald-700 font-medium shrink-0"
                 >
                   Ver →
                 </Link>
@@ -155,7 +155,7 @@ export default async function DetalleRutaPage({ params }: Props) {
         <h2 className="font-semibold text-gray-700 text-xs uppercase tracking-wide mb-3">Comprobantes</h2>
         <Link
           href={`/ventas?ruta=${id}`}
-          className="inline-flex items-center gap-1.5 text-sm text-orange-600 hover:text-orange-700 font-medium"
+          className="inline-flex items-center gap-1.5 text-sm text-emerald-600 hover:text-emerald-700 font-medium"
         >
           Ver comprobantes de esta ruta →
         </Link>

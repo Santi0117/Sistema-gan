@@ -87,7 +87,7 @@ export function PasoClientesDrag({ todosClientes, rutaId, asignados, onChange }:
           placeholder="Buscar cliente…"
           value={busqueda}
           onChange={(e) => setBusqueda(e.target.value)}
-          className="w-full h-9 px-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-orange-400"
+          className="w-full h-9 px-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-emerald-400"
         />
         <div className="border border-gray-200 rounded-lg overflow-hidden max-h-72 overflow-y-auto divide-y divide-gray-50">
           {filtrados.length === 0 && (
@@ -96,7 +96,7 @@ export function PasoClientesDrag({ todosClientes, rutaId, asignados, onChange }:
             </p>
           )}
           {filtrados.map((c) => (
-            <div key={c.id} className="flex items-center gap-3 px-3 py-2.5 hover:bg-orange-50 group">
+            <div key={c.id} className="flex items-center gap-3 px-3 py-2.5 hover:bg-emerald-50 group">
               <div className="flex-1 min-w-0">
                 <p className="text-sm text-gray-800 truncate">{c.nombre}</p>
                 {c.codigoNegocio && (
@@ -106,7 +106,7 @@ export function PasoClientesDrag({ todosClientes, rutaId, asignados, onChange }:
               <button
                 type="button"
                 onClick={() => agregar(c)}
-                className="shrink-0 text-xs px-2 py-1 bg-orange-500 hover:bg-orange-600 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                className="shrink-0 text-xs px-2 py-1 bg-emerald-500 hover:bg-emerald-600 text-white rounded opacity-0 group-hover:opacity-100 transition-opacity"
               >
                 + Agregar
               </button>
@@ -117,7 +117,7 @@ export function PasoClientesDrag({ todosClientes, rutaId, asignados, onChange }:
           <button
             type="button"
             onClick={() => filtrados.forEach((c) => agregar(c))}
-            className="text-xs text-orange-600 hover:text-orange-700 font-medium"
+            className="text-xs text-emerald-600 hover:text-emerald-700 font-medium"
           >
             Agregar todos →
           </button>

@@ -12,7 +12,7 @@ interface Props {
 
 const ESTADO_MH_COLOR: Record<string, string> = {
   ACEPTADA: "text-green-700 bg-green-50",
-  PENDIENTE: "text-orange-700 bg-orange-50",
+  PENDIENTE: "text-emerald-700 bg-emerald-50",
   RECHAZADA: "text-red-700 bg-red-50",
   ERROR: "text-red-700 bg-red-50",
   NO_APLICA: "text-gray-500 bg-gray-50",
@@ -20,7 +20,7 @@ const ESTADO_MH_COLOR: Record<string, string> = {
 
 const CREDITO_COLOR: Record<string, string> = {
   VENCIDO: "text-red-700 font-semibold",
-  VIGENTE: "text-orange-700",
+  VIGENTE: "text-emerald-700",
   "AL DÍA": "text-green-700",
 };
 
@@ -54,7 +54,7 @@ export function TablaReporte({ reporte, tipo, filtros }: Props) {
     if (col.key === "estado" && typeof val === "string" && CREDITO_COLOR[val]) {
       return `${base} ${align} ${CREDITO_COLOR[val]}`;
     }
-    if (col.key === "alerta" && val) return `${base} ${align} text-orange-600 text-xs`;
+    if (col.key === "alerta" && val) return `${base} ${align} text-emerald-600 text-xs`;
 
     return `${base} ${align}`;
   }

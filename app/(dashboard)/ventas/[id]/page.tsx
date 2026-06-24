@@ -8,7 +8,7 @@ import Decimal from "decimal.js";
 
 const ESTADO_MH_CONFIG: Record<string, { label: string; color: string }> = {
   NO_APLICA: { label: "No aplica", color: "bg-gray-100 text-gray-500" },
-  PENDIENTE: { label: "Pendiente MH", color: "bg-orange-100 text-orange-700" },
+  PENDIENTE: { label: "Pendiente MH", color: "bg-emerald-100 text-emerald-700" },
   EN_PROCESO: { label: "En proceso", color: "bg-blue-100 text-blue-700" },
   ACEPTADA: { label: "Aceptada MH", color: "bg-green-100 text-green-700" },
   RECHAZADA: { label: "Rechazada MH", color: "bg-red-100 text-red-700" },
@@ -139,11 +139,11 @@ export default async function DetalleFacturaPage({ params }: Props) {
                     <td className="px-4 py-2.5 text-right text-gray-600">
                       <span>₡{new Decimal(l.precioUnitario).toDecimalPlaces(2).toNumber().toLocaleString("es-CR")}</span>
                       {parseFloat(l.descuentoMonto) > 0 && (
-                        <p className="text-xs text-orange-600">-₡{new Decimal(l.descuentoMonto).toDecimalPlaces(2).toNumber().toLocaleString("es-CR")}</p>
+                        <p className="text-xs text-emerald-600">-₡{new Decimal(l.descuentoMonto).toDecimalPlaces(2).toNumber().toLocaleString("es-CR")}</p>
                       )}
                     </td>
                     <td className="px-4 py-2.5 text-center">
-                      <span className={`text-xs px-1.5 py-0.5 rounded ${l.tipoImpuesto === "EXENTO" ? "bg-gray-100 text-gray-500" : "bg-orange-100 text-orange-700"}`}>
+                      <span className={`text-xs px-1.5 py-0.5 rounded ${l.tipoImpuesto === "EXENTO" ? "bg-gray-100 text-gray-500" : "bg-emerald-100 text-emerald-700"}`}>
                         {IVA_LABELS[l.tipoImpuesto] ?? l.tipoImpuesto}
                       </span>
                     </td>
