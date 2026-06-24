@@ -99,7 +99,8 @@ export default async function ControlPage() {
 
       {/* Greeting banner */}
       <div
-        className="animate-fade-in-up relative overflow-hidden rounded-2xl px-6 py-5"
+        className="animate-fade-in-up relative rounded-2xl px-6 py-5"
+        style={{ isolation: "isolate" }}
         style={{
           background: "linear-gradient(135deg, #0e2016 0%, #0a1a10 60%, #071310 100%)",
           boxShadow: "0 4px 24px rgba(16,185,129,0.12)",

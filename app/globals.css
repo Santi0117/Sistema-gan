@@ -99,22 +99,26 @@ body {
     animation: float 3s ease-in-out infinite;
   }
 
-  /* Gradient text verde */
+  /* Gradient text verde — sin animation para compatibilidad Safari */
   .text-gradient-emerald {
-    background: linear-gradient(135deg, #10b981 0%, #34d399 50%, #6ee7b7 100%);
-    background-size: 200% auto;
+    color: #34d399; /* fallback si background-clip no soportado */
+    background: linear-gradient(120deg, #10b981 0%, #34d399 55%, #6ee7b7 100%);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: shimmer-text 3s linear infinite;
+    -webkit-text-fill-color: transparent;
+    /* Safari bug: animation + background-clip:text falla; usar will-change en su lugar */
+    will-change: auto;
+    isolation: isolate;
   }
 
   /* Gradient text para montos grandes */
   .text-gradient-money {
-    background: linear-gradient(135deg, #059669 0%, #10b981 60%, #34d399 100%);
+    color: #059669;
+    background: linear-gradient(120deg, #047857 0%, #059669 40%, #10b981 100%);
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
+    isolation: isolate;
   }
 
   /* Card con hover glow */
