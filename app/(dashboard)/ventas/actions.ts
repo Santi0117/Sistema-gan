@@ -252,3 +252,250 @@ export async function emitirFactura(
     numero,
   };
 }
+
+// ─── Líneas de factura ────────────────────────────────────────────────────────
+
+export interface LineaFacturaMock {
+  id: string;
+  facturaId: string;
+  linea: number;
+  codigoCabys: string | null;
+  descripcion: string;
+  unidadMedida: string;
+  cantidad: string;
+  precioUnitario: string;
+  descuentoPct: string;
+  descuentoMonto: string;
+  subtotalLinea: string;
+  baseImponible: string;
+  tipoImpuesto: string;
+  tarifaImpuesto: string;
+  montoImpuesto: string;
+  totalLinea: string;
+}
+
+const MOCK_LINEAS: LineaFacturaMock[] = [
+  { id: "l1", facturaId: "f1", linea: 1, codigoCabys: "1010100010100", descripcion: "Leche entera 1L", unidadMedida: "Unid", cantidad: "3.000", precioUnitario: "1000.00000", descuentoPct: "0.00", descuentoMonto: "0.00000", subtotalLinea: "3000.00000", baseImponible: "3000.00000", tipoImpuesto: "IVA_13", tarifaImpuesto: "13.00", montoImpuesto: "390.00000", totalLinea: "3390.00000" },
+  { id: "l2", facturaId: "f1", linea: 2, codigoCabys: "1020200020200", descripcion: "Queso turrialba 500g", unidadMedida: "Unid", cantidad: "1.000", precioUnitario: "500.00000", descuentoPct: "0.00", descuentoMonto: "0.00000", subtotalLinea: "500.00000", baseImponible: "0.00000", tipoImpuesto: "EXENTO", tarifaImpuesto: "0.00", montoImpuesto: "0.00000", totalLinea: "500.00000" },
+  { id: "l3", facturaId: "f1", linea: 3, codigoCabys: "0310100030100", descripcion: "Carne res kg", unidadMedida: "kg", cantidad: "2.000", precioUnitario: "2000.00000", descuentoPct: "5.00", descuentoMonto: "200.00000", subtotalLinea: "4000.00000", baseImponible: "3800.00000", tipoImpuesto: "IVA_2", tarifaImpuesto: "2.00", montoImpuesto: "76.00000", totalLinea: "3876.00000" },
+  { id: "l4", facturaId: "f2", linea: 1, codigoCabys: "1010100010100", descripcion: "Leche descremada 1L", unidadMedida: "Unid", cantidad: "9.000", precioUnitario: "100.00000", descuentoPct: "0.00", descuentoMonto: "0.00000", subtotalLinea: "900.00000", baseImponible: "0.00000", tipoImpuesto: "EXENTO", tarifaImpuesto: "0.00", montoImpuesto: "0.00000", totalLinea: "900.00000" },
+  { id: "l5", facturaId: "f3", linea: 1, codigoCabys: "5050500050500", descripcion: "Servicio de distribución", unidadMedida: "Sp", cantidad: "1.000", precioUnitario: "18500.00000", descuentoPct: "0.00", descuentoMonto: "0.00000", subtotalLinea: "18500.00000", baseImponible: "0.00000", tipoImpuesto: "EXENTO", tarifaImpuesto: "0.00", montoImpuesto: "0.00000", totalLinea: "18500.00000" },
+  { id: "l6", facturaId: "f4", linea: 1, codigoCabys: "0310100030100", descripcion: "Carne molida 1kg", unidadMedida: "kg", cantidad: "10.000", precioUnitario: "1100.00000", descuentoPct: "5.00", descuentoMonto: "550.00000", subtotalLinea: "11000.00000", baseImponible: "10450.00000", tipoImpuesto: "IVA_2", tarifaImpuesto: "2.00", montoImpuesto: "209.00000", totalLinea: "10659.00000" },
+];
+
+export async function obtenerLineasFactura(facturaId: string): Promise<LineaFacturaMock[]> {
+  const session = await getSession();
+  if (!session.isLoggedIn) throw new Error("No autorizado");
+
+  try {
+    const { db, lineaFactura } = await import("@/infrastructure/db");
+    const { eq } = await import("drizzle-orm");
+    const lineas = await db.select().from(lineaFactura).where(eq(lineaFactura.facturaId, facturaId));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return lineas as any[];
+  } catch {
+    return MOCK_LINEAS.filter((l) => l.facturaId === facturaId);
+  }
+}
+
+// ─── Anular factura → genera NC ───────────────────────────────────────────────
+
+export async function anularFactura(
+  facturaId: string,
+  razon: string
+): Promise<{ error?: string; ncId?: string; ncConsecutivo?: string }> {
+  const session = await getSession();
+  if (!session.isLoggedIn) return { error: "No autorizado" };
+  if (!razon.trim()) return { error: "Debe indicar una razón de anulación" };
+
+  const factura = MOCK_FACTURAS.find((f) => f.id === facturaId);
+  if (!factura) return { error: "Factura no encontrada" };
+  if (factura.estado !== "ACTIVA") return { error: "Solo se pueden anular facturas activas" };
+  if (factura.tipoComprobante === "NC") return { error: "No se puede anular una Nota de Crédito" };
+
+  try {
+    const { db, factura: facturaTable } = await import("@/infrastructure/db");
+    const { eq } = await import("drizzle-orm");
+
+    // Marcar como ANULADA
+    await db.update(facturaTable).set({ estado: "ANULADA" }).where(eq(facturaTable.id, facturaId));
+
+    // Solo facturas electrónicas generan NC electrónica
+    const esElectronica = TIPOS_COMPROBANTE_ELECTRONICOS.includes(factura.tipoComprobante);
+    let ncConsecutivo: string | null = null;
+    let ncClave: string | null = null;
+
+    if (esElectronica && factura.consecutivo && factura.claveNumerica) {
+      ncConsecutivo = generarConsecutivo({ tipo: "NC", secuencia: mockSecuencia });
+      ncClave = generarClaveNumerica({
+        fecha: new Date(),
+        identificacionEmisor: "3101000000",
+        consecutivo: ncConsecutivo,
+      });
+      mockSecuencia++;
+    }
+
+    const [nc] = await db.insert(facturaTable).values({
+      numero: mockSecuencia,
+      consecutivo: ncConsecutivo ?? `NC-${Date.now()}`,
+      claveNumerica: ncClave,
+      tipoComprobante: "NC",
+      tipoPago: factura.tipoPago ?? "CONTADO",
+      moneda: factura.moneda ?? "CRC",
+      tipoCambio: factura.tipoCambio ?? "1.00000",
+      fecha: new Date(),
+      subtotal: factura.subtotal ?? "0",
+      descuento: factura.descuento ?? "0",
+      impuesto: factura.impuesto ?? "0",
+      total: factura.total ?? "0",
+      estado: "ACTIVA",
+      estadoMH: esElectronica ? "PENDIENTE" : "NO_APLICA",
+      clienteId: factura.clienteId,
+      usuarioId: session.userId,
+      empresaId: session.empresaId,
+      facturaReferenciaId: facturaId,
+    }).returning({ id: facturaTable.id });
+
+    if (esElectronica && ncClave && nc?.id) {
+      try {
+        const { encolarEnvioHacienda } = await import("@/infrastructure/hacienda/hacienda-queue");
+        await encolarEnvioHacienda(nc.id, session.empresaId);
+      } catch {
+        // Redis no disponible en dev
+      }
+    }
+
+    revalidatePath("/ventas");
+    return { ncId: nc?.id ?? "mock-nc", ncConsecutivo: ncConsecutivo ?? undefined };
+  } catch (err) {
+    console.warn("[DEV] DB no disponible, anulación mock:", (err as Error).message);
+    // Mock fallback
+    const idx = MOCK_FACTURAS.findIndex((f) => f.id === facturaId);
+    if (idx >= 0) MOCK_FACTURAS[idx] = { ...MOCK_FACTURAS[idx], estado: "ANULADA" };
+    revalidatePath("/ventas");
+    return { ncId: `mock-nc-${Date.now()}`, ncConsecutivo: `NC-MOCK-${facturaId}` };
+  }
+}
+
+// ─── Reenviar a Hacienda (manual) ─────────────────────────────────────────────
+
+export async function reenviarAHacienda(
+  facturaId: string
+): Promise<{ error?: string; ok?: boolean }> {
+  const session = await getSession();
+  if (!session.isLoggedIn) return { error: "No autorizado" };
+
+  const factura = MOCK_FACTURAS.find((f) => f.id === facturaId);
+  if (!factura) return { error: "Factura no encontrada" };
+  if (!TIPOS_COMPROBANTE_ELECTRONICOS.includes(factura.tipoComprobante)) {
+    return { error: "Solo comprobantes electrónicos se envían a Hacienda" };
+  }
+  if (factura.estadoMH === "ACEPTADA") {
+    return { error: "El comprobante ya fue aceptado por Hacienda" };
+  }
+
+  try {
+    const { encolarEnvioHacienda } = await import("@/infrastructure/hacienda/hacienda-queue");
+    await encolarEnvioHacienda(facturaId, session.empresaId);
+    return { ok: true };
+  } catch (err) {
+    return { error: `Redis no disponible: ${(err as Error).message}` };
+  }
+}
+
+// ─── Refrescar estado MH desde TRIBU-CR ───────────────────────────────────────
+
+export async function refrescarEstadoMH(
+  facturaId: string
+): Promise<{ error?: string; estadoMH?: string; mensaje?: string }> {
+  const session = await getSession();
+  if (!session.isLoggedIn) return { error: "No autorizado" };
+
+  try {
+    const { db, factura: facturaTable, empresa } = await import("@/infrastructure/db");
+    const { eq } = await import("drizzle-orm");
+
+    const [f] = await db.select().from(facturaTable).where(eq(facturaTable.id, facturaId));
+    if (!f?.claveNumerica) return { error: "Factura sin clave numérica" };
+
+    const [emp] = await db.select().from(empresa).where(eq(empresa.id, session.empresaId));
+    if (!emp?.usuarioTribuCR) return { error: "Configure las credenciales TRIBU-CR primero" };
+
+    const { getHaciendaProvider } = await import("@/infrastructure/hacienda/tribu-cr.provider");
+    const { tipoIdAHacienda } = await import("@/domain/hacienda/construir-xml");
+
+    const provider = getHaciendaProvider({
+      usuario: emp.usuarioTribuCR,
+      clave: emp.claveTribuCR ?? "",
+      ambiente: emp.ambienteMH,
+      empresaId: emp.id,
+      emisorTipoId: tipoIdAHacienda(emp.tipoIdentificacion ?? "JURIDICA") ?? "02",
+      emisorNumeroId: emp.identificacion,
+    });
+
+    const resultado = await provider.consultarEstado(f.claveNumerica);
+    const estadoMH = resultado.estado === "ACEPTADO" ? "ACEPTADA"
+      : resultado.estado === "RECHAZADO" ? "RECHAZADA"
+      : resultado.estado === "ERROR" ? "ERROR"
+      : "EN_PROCESO";
+
+    await db.update(facturaTable)
+      .set({ estadoMH, mensajeMH: resultado.mensaje ?? null })
+      .where(eq(facturaTable.id, facturaId));
+
+    revalidatePath(`/ventas/${facturaId}`);
+    return { estadoMH, mensaje: resultado.mensaje };
+  } catch (err) {
+    return { error: (err as Error).message };
+  }
+}
+
+// ─── Exportar Excel ───────────────────────────────────────────────────────────
+
+export async function exportarFacturasExcel(): Promise<{ error?: string; base64?: string }> {
+  const session = await getSession();
+  if (!session.isLoggedIn) return { error: "No autorizado" };
+
+  const facturas = await obtenerFacturas();
+
+  try {
+    const ExcelJS = await import("exceljs");
+    const wb = new ExcelJS.Workbook();
+    const ws = wb.addWorksheet("Comprobantes");
+
+    ws.columns = [
+      { header: "Fecha", key: "fecha", width: 12 },
+      { header: "Tipo", key: "tipo", width: 20 },
+      { header: "Consecutivo", key: "consecutivo", width: 22 },
+      { header: "Cliente", key: "cliente", width: 30 },
+      { header: "Tipo Pago", key: "pago", width: 15 },
+      { header: "Subtotal", key: "subtotal", width: 14 },
+      { header: "IVA", key: "iva", width: 14 },
+      { header: "Total", key: "total", width: 14 },
+      { header: "Estado", key: "estado", width: 12 },
+      { header: "Estado MH", key: "estadoMH", width: 12 },
+    ];
+
+    ws.getRow(1).font = { bold: true };
+
+    for (const f of facturas) {
+      ws.addRow({
+        fecha: f.fecha.toLocaleDateString("es-CR"),
+        tipo: f.tipoComprobante,
+        consecutivo: f.consecutivo ?? "",
+        cliente: (f as { clienteNombre?: string }).clienteNombre ?? "",
+        pago: f.tipoPago ?? "",
+        subtotal: parseFloat(f.subtotal ?? "0"),
+        iva: parseFloat(f.impuesto ?? "0"),
+        total: parseFloat(f.total ?? "0"),
+        estado: f.estado ?? "",
+        estadoMH: f.estadoMH ?? "",
+      });
+    }
+
+    const buffer = await wb.xlsx.writeBuffer();
+    return { base64: Buffer.from(buffer).toString("base64") };
+  } catch (err) {
+    return { error: (err as Error).message };
+  }
+}
