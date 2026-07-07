@@ -25,6 +25,64 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* ─── Dark mode ─────────────────────────────────────────────────────────────── */
+html.dark {
+  color-scheme: dark;
+  --page-bg: #040d08;
+  --background: #0d1f13;
+  --foreground: #e2f8ed;
+}
+
+html.dark body { background: #040d08; color: #e2f8ed; }
+
+/* Surfaces */
+html.dark .bg-white      { background-color: #0d1f13 !important; }
+html.dark .bg-gray-50    { background-color: #0a1a0f !important; }
+html.dark .bg-gray-100   { background-color: #0e2016 !important; }
+html.dark .bg-green-50   { background-color: #061a0d !important; }
+html.dark .bg-amber-50   { background-color: #1a1200 !important; }
+html.dark .bg-red-50     { background-color: #1a0505 !important; }
+html.dark .bg-blue-50    { background-color: #05101a !important; }
+html.dark .bg-emerald-50 { background-color: #061a0d !important; }
+
+/* Borders */
+html.dark .border-gray-200  { border-color: rgba(52,211,153,0.14) !important; }
+html.dark .border-gray-100  { border-color: rgba(52,211,153,0.08) !important; }
+html.dark .border-green-200 { border-color: rgba(52,211,153,0.2)  !important; }
+html.dark .border-amber-200 { border-color: rgba(245,158,11,0.2)  !important; }
+html.dark .border-red-200   { border-color: rgba(239,68,68,0.2)   !important; }
+
+/* Text */
+html.dark .text-gray-900 { color: #e2f8ed !important; }
+html.dark .text-gray-800 { color: rgba(226,248,237,0.88) !important; }
+html.dark .text-gray-700 { color: rgba(210,250,235,0.75) !important; }
+html.dark .text-gray-600 { color: rgba(167,243,208,0.65) !important; }
+html.dark .text-gray-500 { color: rgba(167,243,208,0.50) !important; }
+html.dark .text-gray-400 { color: rgba(167,243,208,0.38) !important; }
+
+/* Table internals */
+html.dark .divide-gray-100 > * + * { border-color: rgba(52,211,153,0.08) !important; }
+html.dark .hover\:bg-gray-50:hover  { background-color: rgba(16,185,129,0.06) !important; }
+
+/* Inputs */
+html.dark input:not([type="checkbox"]):not([type="radio"]),
+html.dark select,
+html.dark textarea {
+  background-color: #0a1a0f !important;
+  border-color: rgba(52,211,153,0.22) !important;
+  color: #e2f8ed !important;
+}
+html.dark input::placeholder { color: rgba(167,243,208,0.35) !important; }
+
+/* Smooth transitions on key elements */
+html.dark .bg-white,
+html.dark .bg-gray-50,
+html.dark .bg-gray-100,
+html.dark main {
+  transition: background-color 0.25s ease;
 }
 
 /* ─── Keyframes ────────────────────────────────────────────────────────────── */
@@ -72,6 +130,53 @@ body {
 @keyframes spin-slow {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
+}
+
+@keyframes wave-move {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes bubble-rise {
+  0%   { transform: translateY(0) scale(1); opacity: 0.4; }
+  80%  { opacity: 0.2; }
+  100% { transform: translateY(-120px) scale(1.4); opacity: 0; }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+@keyframes draw-route {
+  from { stroke-dashoffset: 300; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes map-fade-in {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes truck-bounce {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-2px); }
+}
+
+@keyframes road-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-60px); }
+}
+
+@keyframes node-pop {
+  0%   { transform: scale(0); opacity: 0; }
+  70%  { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes orbit-spin {
+  from { transform: rotate(0deg) translateX(28px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(28px) rotate(-360deg); }
 }
 
 /* ─── Utilities ────────────────────────────────────────────────────────────── */
@@ -146,5 +251,22 @@ body {
   .bg-dot-grid {
     background-image: radial-gradient(circle, #d1fae5 1px, transparent 1px);
     background-size: 24px 24px;
+  }
+
+  /* Dairy animations */
+  .animate-wave-move {
+    animation: wave-move 2.5s linear infinite;
+  }
+  .animate-bubble-rise {
+    animation: bubble-rise 3s ease-in infinite;
+  }
+  .animate-pulse-ring {
+    animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  .animate-draw-route {
+    animation: draw-route 1.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+  .animate-map-fade-in {
+    animation: map-fade-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 }

@@ -47,7 +47,7 @@ export default async function DashboardLayout({
           rol={session.rol}
           title="SistemaGan"
         />
-        <main className="flex-1 overflow-auto" style={{ background: "#f0fdf4" }}>
+        <main className="flex-1 overflow-auto" style={{ background: "var(--page-bg)" }}>
           {children}
         </main>
       </div>
