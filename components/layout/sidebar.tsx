@@ -79,10 +79,10 @@ export function Sidebar({ open, onClose }: SidebarProps) {
   return (
     <aside
       className={cn(
-        "flex flex-col w-52 shrink-0 overflow-y-auto relative z-40",
-        // Mobile: fixed drawer that slides in/out
+        "flex flex-col w-52 shrink-0 overflow-y-auto z-40",
+        // Mobile: fixed drawer
         "fixed inset-y-0 left-0 transition-transform duration-300 ease-in-out",
-        // Desktop: static in the flex row
+        // Desktop: back in normal flow
         "md:relative md:translate-x-0 md:h-full",
         open ? "translate-x-0" : "-translate-x-full"
       )}
