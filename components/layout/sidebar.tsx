@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, FileText, ShoppingCart, Users, Package,
-  Box, Truck, BarChart2, Settings, ChevronDown, Store,
+  Box, Truck, BarChart2, Settings, ChevronDown, Store, X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -57,7 +57,12 @@ const NAV: NavItem[] = [
   },
 ];
 
-export function Sidebar() {
+interface SidebarProps {
+  open: boolean;
+  onClose: () => void;
+}
+
+export function Sidebar({ open, onClose }: SidebarProps) {
   const pathname = usePathname();
 
   const initialOpen: Record<string, boolean> = {};
@@ -67,17 +72,25 @@ export function Sidebar() {
     }
   }
 
-  const [open, setOpen] = useState<Record<string, boolean>>(initialOpen);
-  const toggle = (label: string) => setOpen((prev) => ({ ...prev, [label]: !prev[label] }));
+  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(initialOpen);
+  const toggle = (label: string) =>
+    setOpenGroups((prev) => ({ ...prev, [label]: !prev[label] }));
 
   return (
     <aside
-      className="flex flex-col w-52 shrink-0 h-full overflow-y-auto relative"
+      className={cn(
+        "flex flex-col w-52 shrink-0 overflow-y-auto relative z-40",
+        // Mobile: fixed drawer that slides in/out
+        "fixed inset-y-0 left-0 transition-transform duration-300 ease-in-out",
+        // Desktop: static in the flex row
+        "md:relative md:translate-x-0 md:h-full",
+        open ? "translate-x-0" : "-translate-x-full"
+      )}
       style={{
         background: "linear-gradient(170deg, #0e2016 0%, #091610 50%, #06120d 100%)",
       }}
     >
-      {/* Decorative glow orb at top */}
+      {/* Decorative glow */}
       <div
         className="absolute top-0 left-0 w-40 h-40 rounded-full pointer-events-none"
         style={{
@@ -100,22 +113,33 @@ export function Sidebar() {
         >
           <Store size={15} className="text-white" />
         </div>
-        <div>
+        <div className="flex-1 min-w-0">
           <span className="text-sm font-semibold text-white/90 truncate block leading-tight">SistemaGan</span>
           <span className="text-[9px] font-medium" style={{ color: "#34d399" }}>Facturación CR v4.4</span>
         </div>
+        {/* Close button — mobile only */}
+        <button
+          onClick={onClose}
+          className="md:hidden p-1.5 rounded-lg hover:bg-white/10 transition-colors shrink-0"
+          aria-label="Cerrar menú"
+        >
+          <X size={16} className="text-white/60" />
+        </button>
       </div>
 
       {/* Nav */}
       <nav className="relative flex-1 px-2 py-3 space-y-0.5">
-        {NAV.map((item, i) => {
+        {NAV.map((item) => {
           if (!item.children) {
-            const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href + "/"));
+            const isActive =
+              pathname === item.href ||
+              (item.href !== "/" && pathname.startsWith(item.href + "/"));
             const Icon = item.icon;
             return (
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={onClose}
                 className={cn(
                   "flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm transition-all duration-200",
                   isActive
@@ -140,7 +164,7 @@ export function Sidebar() {
           }
 
           const isGroupActive = item.children.some((c) => pathname.startsWith(c.href));
-          const isOpen = open[item.label] ?? false;
+          const isOpen = openGroups[item.label] ?? false;
           const Icon = item.icon;
 
           return (
@@ -174,11 +198,13 @@ export function Sidebar() {
                 }}
               >
                 {item.children.map((child) => {
-                  const isActive = pathname === child.href || pathname.startsWith(child.href + "/");
+                  const isActive =
+                    pathname === child.href || pathname.startsWith(child.href + "/");
                   return (
                     <Link
                       key={child.href}
                       href={child.href}
+                      onClick={onClose}
                       className={cn(
                         "block px-2 py-1.5 rounded-md text-xs transition-all duration-150",
                         isActive
@@ -197,7 +223,7 @@ export function Sidebar() {
         })}
       </nav>
 
-      {/* Footer decoration */}
+      {/* Footer */}
       <div
         className="px-4 py-3 text-[9px] shrink-0"
         style={{ borderTop: "1px solid rgba(52,211,153,0.08)", color: "rgba(255,255,255,0.2)" }}

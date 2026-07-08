@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Bell, ChevronDown, LogOut, Sun, Moon } from "lucide-react";
+import { Bell, ChevronDown, LogOut, Sun, Moon, Menu } from "lucide-react";
 import { logoutAction } from "@/app/(auth)/login/actions";
 import type { UserRole } from "@/lib/session";
 
@@ -9,6 +9,7 @@ interface TopbarProps {
   nombre: string;
   rol: UserRole;
   title: string;
+  onMenuClick: () => void;
 }
 
 const ROL_LABEL: Record<UserRole, string> = {
@@ -17,7 +18,7 @@ const ROL_LABEL: Record<UserRole, string> = {
   CONTADOR: "Contador",
 };
 
-export function Topbar({ nombre, rol, title }: TopbarProps) {
+export function Topbar({ nombre, rol, title, onMenuClick }: TopbarProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
 
@@ -43,19 +44,35 @@ export function Topbar({ nombre, rol, title }: TopbarProps) {
     .toUpperCase();
 
   const headerCls = isDark
-    ? "h-12 flex items-center px-5 gap-4 shrink-0 transition-colors bg-[#071310] border-b border-emerald-900/30"
-    : "h-12 flex items-center px-5 gap-4 shrink-0 transition-colors bg-white border-b border-gray-200";
+    ? "h-12 flex items-center px-4 gap-3 shrink-0 transition-colors bg-[#071310] border-b border-emerald-900/30"
+    : "h-12 flex items-center px-4 gap-3 shrink-0 transition-colors bg-white border-b border-gray-200";
 
-  const titleCls = isDark ? "flex-1 text-sm font-semibold text-emerald-100" : "flex-1 text-sm font-semibold text-gray-800";
-  const iconBtnCls = isDark ? "p-1.5 rounded-lg hover:bg-emerald-900/40 transition-colors" : "p-1.5 rounded-lg hover:bg-gray-100 transition-colors";
-  const userBtnCls = isDark ? "flex items-center gap-2 px-2 py-1 rounded-lg hover:bg-emerald-900/40 transition-colors" : "flex items-center gap-2 px-2 py-1 rounded-lg hover:bg-gray-100 transition-colors";
+  const iconBtnCls = isDark
+    ? "p-1.5 rounded-lg hover:bg-emerald-900/40 transition-colors"
+    : "p-1.5 rounded-lg hover:bg-gray-100 transition-colors";
+
+  const userBtnCls = isDark
+    ? "flex items-center gap-2 px-2 py-1 rounded-lg hover:bg-emerald-900/40 transition-colors"
+    : "flex items-center gap-2 px-2 py-1 rounded-lg hover:bg-gray-100 transition-colors";
+
   const dropdownCls = isDark
     ? "absolute right-0 top-10 z-20 w-48 bg-[#0d1f13] rounded-xl border border-emerald-900/30 shadow-lg shadow-black/30 py-1"
     : "absolute right-0 top-10 z-20 w-48 bg-white rounded-xl border border-gray-200 shadow-lg py-1";
 
   return (
     <header className={headerCls}>
-      <span className={titleCls}>{title}</span>
+      {/* Hamburger — always visible */}
+      <button
+        onClick={onMenuClick}
+        className={iconBtnCls}
+        aria-label="Abrir menú"
+      >
+        <Menu size={18} className={isDark ? "text-emerald-400" : "text-gray-500"} />
+      </button>
+
+      <span className={`flex-1 text-sm font-semibold truncate ${isDark ? "text-emerald-100" : "text-gray-800"}`}>
+        {title}
+      </span>
 
       {/* Theme toggle */}
       <button onClick={toggleTheme} className={iconBtnCls} aria-label="Cambiar tema">
@@ -80,8 +97,12 @@ export function Topbar({ nombre, rol, title }: TopbarProps) {
             {initials}
           </div>
           <div className="text-left hidden sm:block">
-            <p className={`text-xs font-medium leading-tight ${isDark ? "text-emerald-100" : "text-gray-800"}`}>{nombre}</p>
-            <p className={`text-[10px] leading-tight ${isDark ? "text-emerald-600" : "text-gray-400"}`}>{ROL_LABEL[rol]}</p>
+            <p className={`text-xs font-medium leading-tight ${isDark ? "text-emerald-100" : "text-gray-800"}`}>
+              {nombre}
+            </p>
+            <p className={`text-[10px] leading-tight ${isDark ? "text-emerald-600" : "text-gray-400"}`}>
+              {ROL_LABEL[rol]}
+            </p>
           </div>
           <ChevronDown size={13} className={isDark ? "text-emerald-600" : "text-gray-400"} />
         </button>
@@ -97,7 +118,7 @@ export function Topbar({ nombre, rol, title }: TopbarProps) {
               <form action={logoutAction}>
                 <button
                   type="submit"
-                  className={`w-full flex items-center gap-2 px-3 py-2 text-xs text-red-400 transition-colors ${isDark ? "hover:bg-red-950/40" : "hover:bg-red-50 text-red-600"}`}
+                  className={`w-full flex items-center gap-2 px-3 py-2 text-xs transition-colors ${isDark ? "text-red-400 hover:bg-red-950/40" : "text-red-600 hover:bg-red-50"}`}
                 >
                   <LogOut size={13} />
                   Cerrar sesión
