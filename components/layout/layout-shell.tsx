@@ -13,13 +13,15 @@ interface LayoutShellProps {
 }
 
 export function LayoutShell({ children, nombre, rol }: LayoutShellProps) {
-  // Default: open on md+, closed on mobile
-  const [sidebarOpen, setSidebarOpen] = useState(
-    typeof window !== "undefined" ? window.innerWidth >= 768 : true
-  );
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const pathname = usePathname();
 
-  // Close sidebar on navigation only on mobile
+  // Open by default on desktop after mount (avoid SSR mismatch)
+  useEffect(() => {
+    if (window.innerWidth >= 768) setSidebarOpen(true);
+  }, []);
+
+  // Close on navigation only on mobile
   useEffect(() => {
     if (window.innerWidth < 768) setSidebarOpen(false);
   }, [pathname]);
