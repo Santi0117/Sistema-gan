@@ -87,11 +87,12 @@ const SPARKLINE_DATA = [800, 3200, 1400, 6800, 4100, 8500, 3746];
 const MAX_W = Math.max(...WEEKLY.map(w => w.value));
 
 function BarChart({ mounted }: { mounted: boolean }) {
+  const LM = 36; // left margin for Y-axis labels
   const CW = 320, CH = 130, BW = 42;
   const slot = CW / WEEKLY.length;
 
   return (
-    <svg width="100%" viewBox={`0 0 ${CW} ${CH + 38}`} className="overflow-visible">
+    <svg width="100%" viewBox={`0 0 ${CW + LM} ${CH + 38}`}>
       <defs>
         <linearGradient id="bG" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stopColor="#10b981" />
@@ -108,6 +109,9 @@ function BarChart({ mounted }: { mounted: boolean }) {
           <feMerge><feMergeNode in="gl" /><feMergeNode in="SourceGraphic" /></feMerge>
         </filter>
       </defs>
+
+      {/* Everything offset by LM to make room for Y labels */}
+      <g transform={`translate(${LM}, 0)`}>
 
       {/* Grid lines */}
       {[0.25, 0.5, 0.75, 1].map(p => (
@@ -164,6 +168,7 @@ function BarChart({ mounted }: { mounted: boolean }) {
           </g>
         );
       })}
+      </g>{/* end translate group */}
     </svg>
   );
 }
